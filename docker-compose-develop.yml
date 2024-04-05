@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  nginx:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./build:/usr/share/nginx/html/home
+    ports:
+      - "80:80"
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.5
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1

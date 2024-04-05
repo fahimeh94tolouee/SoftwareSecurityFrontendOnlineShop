@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  node:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    networks:
+      vpcbr:
+        ipv4_address: 10.40.0.5
+    restart: unless-stopped
+    ports: 
+      - 3000:3000
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.40.0.0/24
+         gateway: 10.40.0.1
